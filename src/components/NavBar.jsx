@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const NavBar = () => {
   const navItem = (
     <>
@@ -40,13 +42,20 @@ const NavBar = () => {
               {navItem}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl">Job Portal</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItem}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <NavLink to={"/login"}>
+            <button className="bg-gray-300 px-5 py-2 rounded-xl">Log in</button>
+          </NavLink>
+          <NavLink to={"/register"}>
+            <button className="bg-gray-300 px-5 py-2 rounded-xl">
+              Register
+            </button>
+          </NavLink>
         </div>
       </div>
     </div>
