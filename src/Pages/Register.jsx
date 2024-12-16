@@ -2,10 +2,13 @@ import React, { useContext } from "react";
 import { jobPortalContext } from "../AuthProvider/AuthProvider";
 import Lottie from "lottie-react";
 import registerLottieData from "../assets/registration.json";
+import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { createUserWithEmail, createUserWithGoogle } =
     useContext(jobPortalContext);
+  const navigate = useNavigate();
 
   const handleRegistration = (event) => {
     event.preventDefault();
@@ -13,9 +16,9 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(email, password);
     createUserWithEmail(email, password)
       .then((result) => {
+        navigate("/");
         console.log("Register Successful");
       })
       .catch((error) => {
@@ -28,6 +31,7 @@ const Register = () => {
         const user = result.user;
         console.log("Register Successful");
         console.log("User Info:", user);
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error during Google sign-in:", error.message);
@@ -77,10 +81,12 @@ const Register = () => {
               <button className="btn btn-primary">Register</button>
             </div>
           </form>
+          <div className="divider">OR</div>
           <button
             onClick={handleSignUPWithGoogle}
-            className="px-5 py-3 rounded-lg bg-gray-200 text-xl font-semibold text-color1"
+            className="px-5 py-3 rounded-lg bg-gray-200 text-xl font-semibold text-color1 flex items-center justify-center gap-3"
           >
+            <FcGoogle />
             Google
           </button>
         </div>

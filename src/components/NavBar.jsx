@@ -1,17 +1,25 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { jobPortalContext } from "../AuthProvider/AuthProvider";
 
 const NavBar = () => {
+  const { user, LogOutUser } = useContext(jobPortalContext);
+
+  const handleLogOut = () => {
+    LogOutUser()
+      .then((result) => {
+        console.log("Logout Successful");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const navItem = (
     <>
-      <li>
-        <a>Item 1</a>
-      </li>
-      <li>
-        <a>Parent</a>
-      </li>
-      <li>
-        <a>Item 3</a>
-      </li>
+      <NavLink to={"/"}>Home</NavLink>
+      <NavLink to={"/"}>Career</NavLink>
+      <NavLink to={"/"}>Rate</NavLink>
     </>
   );
   return (
@@ -45,17 +53,40 @@ const NavBar = () => {
           <a className="btn btn-ghost text-xl">Job Portal</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navItem}</ul>
+          <ul className="menu menu-horizontal px-1  text-2xl font-semibold space-x-4">
+            {navItem}
+          </ul>
         </div>
         <div className="navbar-end">
-          <NavLink to={"/login"}>
-            <button className="bg-gray-300 px-5 py-2 rounded-xl">Log in</button>
-          </NavLink>
-          <NavLink to={"/register"}>
-            <button className="bg-gray-300 px-5 py-2 rounded-xl">
-              Register
-            </button>
-          </NavLink>
+          {user ? (
+            <div className="flex justify-center items-center gap-3">
+              <img
+                className="w-10 rounded-full p-1 border border-gray-200"
+                src={user.photoURL}
+                alt=""
+              />
+
+              <button
+                onClick={handleLogOut}
+                className="bg-gray-300 px-5 py-2 rounded-xl"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <>
+              <NavLink to={"/login"}>
+                <button className="bg-gray-300 px-5 py-2 rounded-xl">
+                  Log in
+                </button>
+              </NavLink>
+              <NavLink to={"/register"}>
+                <button className="bg-gray-300 px-5 py-2 rounded-xl">
+                  Register
+                </button>
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </div>
