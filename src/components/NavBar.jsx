@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { jobPortalContext } from "../AuthProvider/AuthProvider";
+import icon from "../assets/footer.png";
 
 const NavBar = () => {
   const { user, LogOutUser } = useContext(jobPortalContext);
@@ -50,6 +51,7 @@ const NavBar = () => {
               {navItem}
             </ul>
           </div>
+          <img className="w-10" src={icon} alt="" />
           <a className="btn btn-ghost text-xl">Job Portal</a>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -74,7 +76,7 @@ const NavBar = () => {
               </button>
             </div>
           ) : (
-            <>
+            <div className="space-x-5">
               <NavLink to={"/login"}>
                 <button className="bg-gray-300 px-5 py-2 rounded-xl">
                   Log in
@@ -85,7 +87,7 @@ const NavBar = () => {
                   Register
                 </button>
               </NavLink>
-            </>
+            </div>
           )}
         </div>
       </div>
