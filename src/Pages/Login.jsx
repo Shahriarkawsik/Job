@@ -2,13 +2,15 @@ import Lottie from "lottie-react";
 import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { jobPortalContext } from "../AuthProvider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import loginLottieData from "../assets/login.json";
 
 const Login = () => {
   const { signInUserWithEmail, createUserWithGoogle } =
     useContext(jobPortalContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state || "/";
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -19,9 +21,9 @@ const Login = () => {
 
     signInUserWithEmail(email, password)
       .then((result) => {
-        navigate("/");
+        navigate(from);
         console.log("Login Successful");
-        console.log("User signed in:", result.user);
+        // console.log("User signed in:", result.user);
       })
       .catch((error) => {
         console.error("Error code:", error.code);
@@ -32,9 +34,9 @@ const Login = () => {
   const handleSignUPWithGoogle = () => {
     createUserWithGoogle()
       .then((result) => {
-        navigate("/");
+        navigate(from);
         console.log("Login Successful");
-        console.log("User Info:", result.user);
+        // console.log("User Info:", result.user);
       })
       .catch((error) => {
         console.error("Error during Google sign-in:", error.message);
